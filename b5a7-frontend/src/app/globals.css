@@ -1,0 +1,6 @@
+@import "tailwindcss/preflight";
+@tailwind utilities;
+
+:root { color-scheme: light; }
+.prose h1 { @apply text-3xl font-bold; }
+.prose h2 { @apply text-2xl font-semibold; }
