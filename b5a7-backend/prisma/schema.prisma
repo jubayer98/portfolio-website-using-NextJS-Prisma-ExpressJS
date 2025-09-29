@@ -9,13 +9,14 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
+  id        String    @id @default(cuid())
+  email     String    @unique
   name      String?
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   posts     Post[]
+  projects  Project[]
 }
 
 model Post {
@@ -27,4 +28,24 @@ model Post {
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  thumbnailUrl String?  // URL to project thumbnail image
+  repoUrl      String?  // GitHub or source code link
+  liveUrl      String?  // Live demo link
+  features     String[] // Array of project features
+  technologies String[] // Technologies used
+  published    Boolean  @default(false)
+  featured     Boolean  @default(false) // For highlighting special projects
+  order        Int      @default(0) // For custom ordering
+  authorId     String
+  author       User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("projects")
 }

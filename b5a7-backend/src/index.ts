@@ -6,11 +6,12 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
 import { logger } from "./logger";
-import { seedAdmin } from "./utils/seed";
 
 import authRoutes from "./routes/auth.routes";
 import postRoutes from "./routes/post.routes";
+import projectRoutes from "./routes/project.routes";
 import healthRoutes from "./routes/health.routes";
+import { seedAdmin } from "./utils/seed";
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.get("/", (_req, res) => {
 app.use("/api", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/projects", projectRoutes);
 
 // Error handler
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
