@@ -37,6 +37,12 @@ export async function apiFetch<T>(path: string, opts: RequestInit = {}): Promise
         const text = await res.text();
         throw new Error(text || `Request failed: ${res.status}`);
     }
+    
+    // Handle empty responses (like DELETE operations)
+    if (res.status === 204 || res.headers.get('content-length') === '0') {
+        return null as T;
+    }
+    
     return res.json();
 }
 
@@ -84,4 +90,33 @@ export const api = {
 
     // Projects (public list)
     listProjects() { return apiFetch<any[]>('/projects'); },
+
+    // Owner Projects
+    createProject(data: { 
+        title: string; 
+        description: string; 
+        thumbnailUrl?: string; 
+        repoUrl?: string; 
+        liveUrl?: string; 
+        features?: string[]; 
+        technologies?: string[]; 
+        published?: boolean; 
+        featured?: boolean; 
+    }) {
+        return apiFetch<any>('/projects', { method: 'POST', body: JSON.stringify(data) });
+    },
+    updateProject(id: string, data: Partial<{ 
+        title: string; 
+        description: string; 
+        thumbnailUrl?: string; 
+        repoUrl?: string; 
+        liveUrl?: string; 
+        features?: string[]; 
+        technologies?: string[]; 
+        published?: boolean; 
+        featured?: boolean; 
+    }>) {
+        return apiFetch<any>(`/projects/${id}`, { method: 'PATCH', body: JSON.stringify(data) });
+    },
+    deleteProject(id: string) { return apiFetch<void>(`/projects/${id}`, { method: 'DELETE' }); },
 };

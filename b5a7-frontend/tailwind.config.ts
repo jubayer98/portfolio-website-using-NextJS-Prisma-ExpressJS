@@ -3,8 +3,14 @@ import typography from '@tailwindcss/typography';
 import lineClamp from '@tailwindcss/line-clamp';
 
 const config: Config = {
-    content: ['./src/app/**/*.{ts,tsx}', './src/components/**/*.{ts,tsx}'],
-    theme: { extend: {} },
+    content: [
+        './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    ],
+    theme: { 
+        extend: {} 
+    },
     plugins: [typography, lineClamp],
 };
 export default config;
