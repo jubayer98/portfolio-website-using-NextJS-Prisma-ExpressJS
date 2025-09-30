@@ -74,7 +74,7 @@ This project is a dynamic personal portfolio site featuring:
 
 **Deployment**
 - Frontend: Vercel
-- Backend: Fly.io (Dockerized Express server)
+- Backend: Vercel
 - Database: Neon (Free Postgres tier)
 
 ---
