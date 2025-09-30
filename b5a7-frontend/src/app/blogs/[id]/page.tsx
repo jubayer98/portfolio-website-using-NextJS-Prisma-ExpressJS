@@ -13,8 +13,9 @@ async function getPost(id: string) {
     return posts.find((p: any) => p.id === id) ?? null;
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-    const post = await getPost(params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+    const { id } = await params;
+    const post = await getPost(id);
     
     if (!post) {
         return {
@@ -31,8 +32,8 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
         title: `${post.title} | Portfolio Blog`,
         description,
         keywords: ['blog', 'web development', 'technology', 'programming', 'tutorial'],
-        authors: [{ name: 'Jubayer Alam' }],
-        creator: 'Jubayer Alam',
+        authors: [{ name: 'Jubayer Ahmed' }],
+        creator: 'Jubayer Ahmed',
         publisher: 'Portfolio',
         openGraph: {
             title: post.title,
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
             type: 'article',
             publishedTime: post.createdAt,
             modifiedTime: post.updatedAt,
-            authors: ['Jubayer Alam'],
+            authors: ['Jubayer Ahmed'],
             tags: ['blog', 'web development', 'technology'],
         },
         twitter: {
@@ -63,8 +64,10 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     };
 }
 
-export default async function BlogDetail({ params }: { params: { id: string } }) {
-    const post = await getPost(params.id);
+
+export default async function BlogDetail({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const post = await getPost(id);
     
     if (!post) {
         return (

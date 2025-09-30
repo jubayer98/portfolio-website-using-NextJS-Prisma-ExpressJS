@@ -15,6 +15,21 @@ import { seedAdmin } from "./utils/seed";
 
 const app = express();
 
+// Handle favicon.ico requests FIRST, before any other middleware
+// app.get("/favicon.ico", (_req, res) => {
+//     res.status(204).end();
+// });
+
+// Handle other common browser requests
+app.get("/robots.txt", (_req, res) => {
+    res.type("text/plain");
+    res.send("User-agent: *\nDisallow: /");
+});
+
+app.get("/sitemap.xml", (_req, res) => {
+    res.status(404).send("Not found");
+});
+
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
@@ -43,20 +58,42 @@ app.get("/", (_req, res) => {
         timestamp: new Date().toISOString() 
     });
 });
+
 app.use("/api", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/projects", projectRoutes);
 
+// Handle 404 for unmatched routes (use middleware instead of app.use("*"))
+app.use((_req, res) => {
+    res.status(404).json({ message: "Route not found" });
+});
+
 // Error handler
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
     logger.error(err);
-    res.status(500).json({ message: "Internal Server Error" });
+    
+    // Don't expose internal errors in production
+    const message = process.env.NODE_ENV === 'production' 
+        ? 'Internal Server Error' 
+        : err.message || 'Internal Server Error';
+    
+    res.status(err.status || 500).json({ message });
 });
 
-app.listen(env.PORT, async () => {
-    logger.info(`Server running on http://localhost:${env.PORT}`);
-    
-    // Seed admin user on first startup
-    await seedAdmin();
-});
+// For Vercel serverless functions, we need to export the app
+export default app;
+
+// Only start server if not in serverless environment
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    app.listen(env.PORT, async () => {
+        logger.info(`Server running on http://localhost:${env.PORT}`);
+        
+        // Only seed in development or when explicitly requested
+        if (process.env.NODE_ENV === 'development') {
+            await seedAdmin();
+        }
+    });
+}
+
+module.exports = app;
