@@ -7,8 +7,8 @@ Showcases blogs, projects, and includes a secure owner dashboard.
 
 ## 🚀 Live Demo
 
-- **Frontend (Next.js)**: [https://your-frontend.vercel.app](https://your-frontend.vercel.app)  
-- **Backend (Express + Prisma)**: [https://your-backend.fly.dev](https://your-backend.fly.dev)  
+- **Frontend (Next.js)**: [https://b5a7-frontend.vercel.app](https://b5a7-frontend.vercel.app)  
+- **Backend (Express + Prisma)**: [https://b5a7-backend.vercel.app](https://b5a7-backend.vercel.app)  
 - **Database**: Neon (PostgreSQL)
 
 ---
@@ -85,12 +85,12 @@ This project is a dynamic personal portfolio site featuring:
 
 ```bash
 # Frontend
-git clone https://github.com/your-username/b5a7-frontend.git
-cd b5a7-frontend
+git clone https://github.com/jubayer98/portfolio-website-using-NextJS-Prisma-ExpressJS.git
+cd portfolio-website-using-NextJS-Prisma-ExpressJS/b5a7-frontend
 
 # Backend
-git clone https://github.com/your-username/b5a7-backend.git
-cd b5a7-backend
+git clone https://github.com/jubayer98/portfolio-website-using-NextJS-Prisma-ExpressJS.git
+cd portfolio-website-using-NextJS-Prisma-ExpressJS/b5a7-backend
 ```
 
 ### 2. Install dependencies
@@ -136,15 +136,15 @@ npm run dev
 Visit:
 
 - Frontend → [http://localhost:3000](http://localhost:3000)
-- Backend → [http://localhost:4000/api/health](http://localhost:4000/api/health)
+- Backend → [http://localhost:4000](http://localhost:4000)
 
 ---
 
 ## 🔑 Credentials (for testing)
 
 ```txt
-Admin Email: owner@example.com
-Password: secret123
+Admin Email: ContactWithMeForDetails
+Password: ContactWithMeForDetails
 ```
 *(Seeded in backend using `src/seed.ts`)*
 
@@ -183,7 +183,6 @@ Each repo contains its own `README.md`, environment setup, and deployment instru
 
 ## 👤 Author
 
-**Jubayer Ahmed**
+**Jubayer Alam**
 
 - GitHub: [@jubayer98](https://github.com/jubayer98)
-- Email: [jubayerahmed.cse@gmail.com](mailto:jubayerahmed.cse@gmail.com)
