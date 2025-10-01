@@ -160,7 +160,7 @@ A 10–15 min walkthrough covering:
 - Blog & project management
 - Deployment & live links
 
-*(Add your video link here, e.g., Google Drive or YouTube)*
+*([Click Here for Video Explanation Walkthrough](https://www.youtube.com/watch?v=AbgNUsEXbq0))*
 
 ---
 
